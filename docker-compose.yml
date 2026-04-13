@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__database__PATH=/data/gitea/gitea.db
+      - GITEA__server__ROOT_URL=http://localhost:3000
+      - GITEA__server__HTTP_PORT=3000
+      - GITEA__actions__ENABLED=true
+      - GITEA__service__DISABLE_REGISTRATION=false
+    restart: unless-stopped
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    networks:
+      - lsjkash-net
+
+  act-runner:
+    image: gitea/act_runner:latest
+    container_name: act-runner
+    environment:
+      - GITEA_INSTANCE_URL=http://gitea:3000
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${RUNNER_TOKEN}
+      - GITEA_RUNNER_NAME=lsjkash-runner
+      - GITEA_RUNNER_LABELS=ubuntu-latest:docker://node:20-bullseye,python:docker://python:3.12-slim
+    restart: unless-stopped
+    volumes:
+      - act-runner-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - gitea
+    networks:
+      - lsjkash-net
+
+volumes:
+  gitea-data:
+  act-runner-data:
+
+networks:
+  lsjkash-net:
+    driver: bridge

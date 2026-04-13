@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.pem
+*.key
+venv/
+.venv/
+*.log
+data/
+gitea-data/
+act-runner-data/
+*.db
+*.sqlite3
+.DS_Store
