@@ -1,13 +1,13 @@
 """LSJkash - Client TCP de discussion securise."""
 
-import socket
-import threading
-import sys
 import os
+import socket
+import sys
+import threading
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from crypto.caesar import caesar_encrypt, caesar_decrypt
-from crypto.vigenere import vigenere_encrypt, vigenere_decrypt
+from crypto.caesar import caesar_decrypt, caesar_encrypt  # noqa: E402
+from crypto.vigenere import vigenere_decrypt, vigenere_encrypt  # noqa: E402
 
 HOST = "127.0.0.1"
 PORT = 5000
