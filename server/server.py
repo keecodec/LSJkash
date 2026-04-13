@@ -82,8 +82,14 @@ def main():
     global CIPHER, CIPHER_KEY
 
     print("=== LSJkash Serveur ===")
-    print("Modes: none, caesar, vigenere")
-    CIPHER = input("Mode de chiffrement [none]: ").strip().lower() or "none"
+    print("1. none (clair)")
+    print("2. caesar")
+    print("3. vigenere")
+    choix = input("Mode de chiffrement [1]: ").strip().lower()
+    modes = {"1": "none", "2": "caesar", "3": "vigenere",
+             "none": "none", "caesar": "caesar", "vigenere": "vigenere",
+             "": "none"}
+    CIPHER = modes.get(choix, "none")
 
     if CIPHER == "caesar":
         CIPHER_KEY = int(input("Cle (decalage 1-25): ").strip())
