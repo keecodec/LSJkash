@@ -32,10 +32,12 @@ services:
       - GITEA_RUNNER_REGISTRATION_TOKEN=${RUNNER_TOKEN}
       - GITEA_RUNNER_NAME=lsjkash-runner
       - GITEA_RUNNER_LABELS=ubuntu-latest:docker://catthehacker/ubuntu:act-22.04,python:docker://catthehacker/ubuntu:act-22.04
+      - CONFIG_FILE=/config/config.yaml
     restart: unless-stopped
     volumes:
       - act-runner-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./act-runner-config.yaml:/config/config.yaml:ro
     depends_on:
       - gitea
     networks:
