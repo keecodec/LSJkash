@@ -31,7 +31,7 @@ services:
       - GITEA_INSTANCE_URL=http://gitea:3000
       - GITEA_RUNNER_REGISTRATION_TOKEN=${RUNNER_TOKEN}
       - GITEA_RUNNER_NAME=lsjkash-runner
-      - GITEA_RUNNER_LABELS=ubuntu-latest:docker://node:20-bullseye,python:docker://python:3.12-slim
+      - GITEA_RUNNER_LABELS=ubuntu-latest:docker://catthehacker/ubuntu:act-22.04,python:docker://catthehacker/ubuntu:act-22.04
     restart: unless-stopped
     volumes:
       - act-runner-data:/data
