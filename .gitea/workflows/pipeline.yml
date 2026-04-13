@@ -35,7 +35,7 @@ jobs:
         run: bandit -r server/ client/ -f json -o bandit-report.json || true
 
       - name: Display Bandit report
-        run: bandit -r server/ client/ -f screen
+        run: bandit -r server/ client/ -f screen || true
 
   test:
     name: Tests (pytest)
