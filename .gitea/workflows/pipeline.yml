@@ -2,9 +2,9 @@ name: LSJkash CI/CD Pipeline
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, main, pre-prod]
   pull_request:
-    branches: [master, main]
+    branches: [master, main, pre-prod]
 
 jobs:
   lint:
