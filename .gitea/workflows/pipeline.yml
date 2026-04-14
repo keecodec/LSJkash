@@ -19,7 +19,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run flake8
-        run: flake8 server/ client/ --max-line-length=120 --statistics
+        run: flake8 server/ client/ crypto/ --max-line-length=120 --statistics
 
   sast:
     name: SAST (Bandit)
@@ -32,10 +32,10 @@ jobs:
         run: pip install bandit
 
       - name: Run Bandit
-        run: bandit -r server/ client/ -f json -o bandit-report.json || true
+        run: bandit -r server/ client/ crypto/ -f json -o bandit-report.json || true
 
       - name: Display Bandit report
-        run: bandit -r server/ client/ -f screen || true
+        run: bandit -r server/ client/ crypto/ -f screen || true
 
   test:
     name: Tests (pytest)
