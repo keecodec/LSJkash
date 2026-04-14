@@ -62,9 +62,9 @@ python client/client.py
 ## Etapes du projet
 
 - [x] Etape 0 : Infrastructure DevSecOps (Gitea + Docker + CI/CD)
-- [ ] Etape 1 : Communication TCP en clair
-- [ ] Etape 2 : Chiffrement Cesar + Vigenere
-- [ ] Etape 3 : Cryptanalyse
+- [x] Etape 1 : Communication TCP en clair
+- [x] Etape 2 : Chiffrement Cesar + Vigenere
+- [x] Etape 3 : Cryptanalyse
 - [ ] Etape 4 : AES-GCM + echange de cle
 - [ ] Etape 5 : Attaque MITM
 - [ ] Etape 6 : RSA-OAEP + signatures numeriques
