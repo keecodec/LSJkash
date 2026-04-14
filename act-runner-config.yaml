@@ -1,0 +1,20 @@
+log:
+  level: info
+
+runner:
+  file: .runner
+  capacity: 1
+  timeout: 3h
+  fetch_timeout: 5s
+  fetch_interval: 2s
+  labels:
+    - "ubuntu-latest:docker://catthehacker/ubuntu:act-22.04"
+    - "python:docker://catthehacker/ubuntu:act-22.04"
+
+cache:
+  enabled: true
+
+container:
+  network: "lsjkash-main_lsjkash-net"
+  privileged: false
+  options:
