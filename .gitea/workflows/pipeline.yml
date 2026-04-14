@@ -37,6 +37,22 @@ jobs:
       - name: Display Bandit report
         run: bandit -r server/ client/ crypto/ -f screen || true
 
+  sca:
+    name: SCA (pip-audit)
+    runs-on: python
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Install project dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pip-audit
+        run: pip-audit -r requirements.txt || true
+
   test:
     name: Tests (pytest)
     runs-on: python
