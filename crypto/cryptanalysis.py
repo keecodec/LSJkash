@@ -5,7 +5,6 @@ Attaques COA (Ciphertext-Only Attack) :
 - Vigenere : test de Kasiski + Indice de Coincidence + analyse de frequence par colonne
 """
 
-import math
 from math import gcd
 from functools import reduce
 

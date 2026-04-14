@@ -65,7 +65,7 @@ python client/client.py
 - [x] Etape 1 : Communication TCP en clair
 - [x] Etape 2 : Chiffrement Cesar + Vigenere
 - [x] Etape 3 : Cryptanalyse
-- [ ] Etape 4 : AES-GCM + echange de cle
+- [x] Etape 4 : AES-GCM + echange de cle
 - [ ] Etape 5 : Attaque MITM
 - [ ] Etape 6 : RSA-OAEP + signatures numeriques
 - [ ] Etape 7 : Automatisation CI/CD complete

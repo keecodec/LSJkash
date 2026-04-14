@@ -15,6 +15,6 @@ cache:
   enabled: true
 
 container:
-  network: "devchiffrement_lsjkash-net"
+  network: "lsjkash-main_lsjkash-net"
   privileged: false
   options:

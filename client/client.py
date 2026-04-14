@@ -6,6 +6,7 @@ import sys
 import threading
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from crypto.aes_gcm import decrypt_message, encrypt_message, import_key  # noqa: E402
 from crypto.caesar import caesar_decrypt, caesar_encrypt  # noqa: E402
 from crypto.vigenere import vigenere_decrypt, vigenere_encrypt  # noqa: E402
 
@@ -20,8 +21,10 @@ def encrypt(message):
     """Chiffre un message selon le mode actif."""
     if CIPHER == "caesar":
         return caesar_encrypt(message, CIPHER_KEY)
-    elif CIPHER == "vigenere":
+    if CIPHER == "vigenere":
         return vigenere_encrypt(message, CIPHER_KEY)
+    if CIPHER == "aesgcm":
+        return encrypt_message(message, CIPHER_KEY)
     return message
 
 
@@ -29,8 +32,10 @@ def decrypt(message):
     """Dechiffre un message selon le mode actif."""
     if CIPHER == "caesar":
         return caesar_decrypt(message, CIPHER_KEY)
-    elif CIPHER == "vigenere":
+    if CIPHER == "vigenere":
         return vigenere_decrypt(message, CIPHER_KEY)
+    if CIPHER == "aesgcm":
+        return decrypt_message(message, CIPHER_KEY)
     return message
 
 
@@ -43,7 +48,12 @@ def receive(sock):
                 print("[!] Connexion fermee par le serveur")
                 break
             encrypted_msg = data.decode()
-            clear_msg = decrypt(encrypted_msg)
+            try:
+                clear_msg = decrypt(encrypted_msg)
+            except ValueError as exc:
+                print(f"\n[!] Message recu invalide : {exc}")
+                print("> ", end="", flush=True)
+                continue
             print(f"\r[chiffre] {encrypted_msg}")
             print(f"[clair]   {clear_msg}")
             print("> ", end="", flush=True)
@@ -66,15 +76,17 @@ def main():
         # Recoit la config de chiffrement du serveur
         config_data = sock.recv(4096).decode().strip()
         if config_data.startswith("CIPHER:"):
-            parts = config_data.split(":")
+            parts = config_data.split(":", 2)
             CIPHER = parts[1]
             key_str = parts[2] if len(parts) > 2 else ""
             if CIPHER == "caesar" and key_str:
                 CIPHER_KEY = int(key_str)
             elif CIPHER == "vigenere" and key_str:
                 CIPHER_KEY = key_str
+            elif CIPHER == "aesgcm" and key_str:
+                CIPHER_KEY = import_key(key_str)
         print(f"[*] Connecte a {HOST}:{PORT} en tant que {username}")
-        print(f"[*] Chiffrement: {CIPHER}" + (f" | Cle: {CIPHER_KEY}" if CIPHER_KEY else ""))
+        print(f"[*] Chiffrement: {CIPHER}")
         print("[*] Tapez votre message puis Entree. Ctrl+C pour quitter.\n")
 
         threading.Thread(target=receive, args=(sock,), daemon=True).start()
