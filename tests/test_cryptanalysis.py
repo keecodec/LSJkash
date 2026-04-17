@@ -5,16 +5,14 @@ Valide les attaques COA contre Cesar et Vigenere :
 - IC, Kasiski et cassage complet de Vigenere
 """
 
-import pytest
 from crypto.caesar import caesar_encrypt
-from crypto.vigenere import vigenere_encrypt, vigenere_decrypt
+from crypto.vigenere import vigenere_encrypt
 from crypto.cryptanalysis import (
     caesar_frequency_attack,
     caesar_brute_force,
     index_of_coincidence,
     kasiski_key_length,
     ic_key_length,
-    vigenere_frequency_attack,
     break_vigenere,
 )
 
