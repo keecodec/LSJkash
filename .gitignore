@@ -13,3 +13,5 @@ act-runner-data/
 *.db
 *.sqlite3
 .DS_Store
+crypto/cryptanalysis.py
+crypto/cryptanalysis.py
