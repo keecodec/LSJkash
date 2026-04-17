@@ -150,7 +150,9 @@ def handle_client_rsa(conn, addr):
 
     # Etape 4 : confirmer au client
     conn.sendall(b"OK\n")
+    import base64 as _b64
     print(f"[+] {addr} connecte (RSA, cle de session echangee par OAEP)")
+    print(f"    [DEMO] session_key = {_b64.b64encode(session_key).decode()}")
 
     # Etape 5 : boucle de messages
     try:
